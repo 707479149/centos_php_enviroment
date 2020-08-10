@@ -1,0 +1,54 @@
+version: "0"
+services:
+  php:
+    #build: ./dockerFiles/php56/
+    image: centos_base_php5:latest
+    container_name: centos_base_php5
+    links:
+      - "redis:dnmp-redis"
+      - "memcached:dnmp-memcached"
+      # - "serviceName:别名"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../:/var/www/html/:rw
+      # php.ini & www.conf 挂载方式方便修改
+      - ./conf/nginx.conf:/usr/local/nginx/nginx.conf:ro
+      - ./conf/php.ini:/etc/php.ini:ro 
+      - ./conf/www.conf:/etc/php-fpm.d/www.conf:rw
+      # 挂载nginx站点配置
+      - ./conf/nginxConf/:/usr/local/nginx/conf/:ro
+      # 挂载日志目录
+      - ./log/nginxLog/:/usr/local/nginx/log/:rw
+      - ./log/fpmLog:/var/log/php-fpm/:rw
+    extra_hosts:
+      - "dev-md.inboyu.com:127.0.0.1"
+      - "dev-uc.inboyu.com:127.0.0.1"
+      - "dev-ac.inboyu.com:127.0.0.1"
+      - "dev-cc.inboyu.com:127.0.0.1"
+      - "dev-op.inboyu.com:127.0.0.1"
+      - "dev-rm.inboyu.com:127.0.0.1"
+      - "dev-cm.inboyu.com:127.0.0.1"
+      - "dev-sc.inboyu.com:127.0.0.1"
+      - "dev-ow.inboyu.com:127.0.0.1"
+      - "dev-tpa.inboyu.com:127.0.0.1"
+      - "dev-pc.inboyu.com:127.0.0.1"
+      - "dev.inboyu.com:127.0.0.1"
+      - "qyhybrid.inboyu.com:127.0.0.1"
+      - "dev-consumer.inboyu.com:127.0.0.1"
+      - "api.inboyu.com:127.0.0.1"
+      - "dev-ops.inboyu.com:127.0.0.1"
+      - "dev-des.inboyu.com:127.0.0.1"
+      - "platform.inboyu.com:127.0.0.1"
+  redis:
+    image: redis:latest
+    container_name: dnmp-redis
+    ports:
+      - "6379:6379"
+
+  memcached:
+    image: memcached:latest
+    container_name: dnmp-memcached
+    ports:
+      - "11211:11211"

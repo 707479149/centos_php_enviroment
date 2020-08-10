@@ -1,0 +1,39 @@
+version: "2.2"
+services:
+  php:
+    #build: ./dockerFiles/php7/
+    image: registry.cn-shenzhen.aliyuncs.com/chenhongsheng/php-environment:latest
+    container_name: centos_base_php7
+    links:
+      - "redis:dnmp-redis"
+      - "memcached:dnmp-memcached"
+      # - "serviceName:别名"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "18306:18306"
+    volumes:
+      - ../:/var/www/html/:rw
+      # php.ini & www.conf 挂载方式方便修改
+      - ./conf/nginx.conf:/usr/local/nginx/nginx.conf:ro
+      - ./conf/php.ini:/etc/php.ini:ro 
+      - ./conf/xdebug.ini:/etc/php.d/xdebug.ini
+      - ./conf/www.conf:/etc/php-fpm.d/www.conf:rw
+      # 挂载nginx站点配置
+      - ./conf/nginxConf/:/usr/local/nginx/conf/:ro
+      # 挂载日志目录
+      - ./log/nginxLog/:/usr/local/nginx/log/:rw
+      - ./log/fpmLog:/var/log/php-fpm/:rw
+    extra_hosts:
+      - "c-backend-dev.wetax.com.cn:127.0.0.1"
+  redis:
+    image: redis:latest
+    container_name: dnmp-redis
+    ports:
+      - "6379:6379"
+
+  memcached:
+    image: memcached:latest
+    container_name: dnmp-memcached
+    ports:
+      - "11211:11211"

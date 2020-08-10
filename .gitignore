@@ -1,0 +1,4 @@
+.*
+!.gitignore
+/conf/nginxConf/
+/log/
