@@ -23,24 +23,6 @@ services:
       - ./log/nginxLog/:/usr/local/nginx/log/:rw
       - ./log/fpmLog:/var/log/php-fpm/:rw
     extra_hosts:
-      - "dev-md.inboyu.com:127.0.0.1"
-      - "dev-uc.inboyu.com:127.0.0.1"
-      - "dev-ac.inboyu.com:127.0.0.1"
-      - "dev-cc.inboyu.com:127.0.0.1"
-      - "dev-op.inboyu.com:127.0.0.1"
-      - "dev-rm.inboyu.com:127.0.0.1"
-      - "dev-cm.inboyu.com:127.0.0.1"
-      - "dev-sc.inboyu.com:127.0.0.1"
-      - "dev-ow.inboyu.com:127.0.0.1"
-      - "dev-tpa.inboyu.com:127.0.0.1"
-      - "dev-pc.inboyu.com:127.0.0.1"
-      - "dev.inboyu.com:127.0.0.1"
-      - "qyhybrid.inboyu.com:127.0.0.1"
-      - "dev-consumer.inboyu.com:127.0.0.1"
-      - "api.inboyu.com:127.0.0.1"
-      - "dev-ops.inboyu.com:127.0.0.1"
-      - "dev-des.inboyu.com:127.0.0.1"
-      - "platform.inboyu.com:127.0.0.1"
   redis:
     image: redis:latest
     container_name: dnmp-redis
